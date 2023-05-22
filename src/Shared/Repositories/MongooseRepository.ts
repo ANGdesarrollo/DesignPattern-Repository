@@ -34,7 +34,7 @@ export abstract class MongooseRepository<T extends IMongooseDocument> implements
         return data;
     };
 
-    async deleteOne(idd: string): Promise<T> {
+    async deleteOne(id: string): Promise<T> {
         const entity = await this.repository.findByIdAndDelete({_id: id});
 
         if(!entity) throw new Error();
