@@ -8,8 +8,8 @@ export class UserMongooseDaos extends MongooseRepository<IUserDomain, UserMongoo
         super(UserModel);
     }
 
-    async findUser(id: string, done: any): Promise<IUserDomain> {
-        const user =  await this.repository.findById(id, done);
+    async findUser(id: string): Promise<IUserDomain> {
+        const user =  await this.repository.findById(id);
 
         if(user) return user;
         
