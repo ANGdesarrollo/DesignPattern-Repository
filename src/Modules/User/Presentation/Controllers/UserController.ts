@@ -1,6 +1,7 @@
-import {IUserDomain} from "../../Domain/Entities/IUserDomain";
 import {SaveUserCase} from "../../Domain/UseCases/SaveUserCase";
 import {IUserSavePayload} from "../../Domain/Payloads/IUserSavePayload";
+import { Response } from "express";
+import { UserTransformer } from "../Transformers/UserTransformer";
 
 export class UserController {
         constructor() {
@@ -10,10 +11,14 @@ export class UserController {
             console.log('Llegue');
         }
 
-        async save(payload: IUserSavePayload): Promise<IUserDomain> {
+        async save(payload: IUserSavePayload, res: Response): Promise<void> {
             const UserUseCase = new SaveUserCase();
-            let test = await UserUseCase.handle(payload);
-            console.log('SOY GUARDAR', test);
-            return test;
+            const user = await UserUseCase.handle(payload);
+            // @ts-ignore
+            console.log('SOY CONTROLER', user.constructor.name)
+            res.json({
+                status: true,
+                user: new UserTransformer().transform(user)
+            })
         }
 }

@@ -17,10 +17,8 @@ export abstract class MongooseRepository<T extends IBaseDomain, D extends Docume
         return await this.repository.create(entity);
     };
 
-    async getOneById(id: string): Promise<T> {
+    async getOneById(id: string): Promise<T | null> {
         const entity = await this.repository.findOne({_id: id});
-
-        if(!entity) throw new Error();
 
         return entity;
     };

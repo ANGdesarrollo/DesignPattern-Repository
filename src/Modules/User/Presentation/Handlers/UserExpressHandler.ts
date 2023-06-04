@@ -1,5 +1,5 @@
 import {IUserExpressHandler} from "./IUserExpressHandler";
-import { Request, Router } from 'express';
+import { Request, Response, Router } from 'express';
 import {UserController} from "../Controllers/UserController";
 export class UserExpressHandler implements IUserExpressHandler{
     public router: Router;
@@ -11,8 +11,8 @@ export class UserExpressHandler implements IUserExpressHandler{
 
     start(): Router {
         this.router.get('/list', this.controller.list);
-        this.router.post('/save', async(req: Request) => {
-            await this.controller.save(req.body);
+        this.router.post('/save', async(req: Request, res: Response) => {
+            await this.controller.save(req.body, res);
         });
         return this.router;
     }

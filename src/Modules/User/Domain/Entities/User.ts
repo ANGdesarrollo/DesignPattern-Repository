@@ -1,7 +1,7 @@
 import { Base } from "../../../../Shared/Domain/Entities/Base";
 import { IUserDomain } from "./IUserDomain";
 
-export class User extends Base {
+export class User extends Base implements IUserDomain {
     public username: string;
     public password: string;
     public email: string;
