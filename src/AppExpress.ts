@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { env } from "./Config/EnvConfig/EnvConfig";
 import {Handlers} from "./Shared/Handlers/Handlers";
 import { connect } from "mongoose";
+import passport from 'passport';
 
 export class AppExpress {
   private app: express.Application;
