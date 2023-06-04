@@ -1,7 +1,10 @@
-import { Schema, model } from "mongoose";
+import { Document, Schema, model } from "mongoose";
 import uuid from "uuid";
+import {IUserDomain} from "../../Domain/Entities/IUserDomain";
 
-const UserSchema = new Schema(
+export type UserMongooseDocument = Document & IUserDomain;
+
+const UserSchema = new Schema<UserMongooseDocument>(
   {
     _id: { type: String, default: uuid },
     username: { type: String, required: true },

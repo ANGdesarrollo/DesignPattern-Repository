@@ -1,10 +1,11 @@
-import { Model } from 'mongoose';
-import { IRepository, IMongooseDocument } from './Interfaces';
+import {Document, Model } from 'mongoose';
+import { IRepository } from './Interfaces';
+import { IBaseDomain } from '../Domain/Entities/IBaseDomain';
 
-export abstract class MongooseRepository<T extends IMongooseDocument> implements IRepository<T> {
-    protected repository: Model<T>
+export abstract class MongooseRepository<T extends IBaseDomain, D extends Document & T> implements IRepository<T> {
+    protected repository: Model<D>
 
-    constructor(Model: Model<T>){
+    protected constructor(Model: Model<D>){
         this.repository = Model;
     };
 
@@ -25,10 +26,10 @@ export abstract class MongooseRepository<T extends IMongooseDocument> implements
     };
 
     async updateOne(entity: T): Promise<T> {
-        const filter = { _id: entity._id};
-        const update = {...entity};
+        const filter = { _id: entity.getId()};
+        const update = { $set: entity } ;
         const data = await this.repository.findOneAndUpdate(filter, update, { new: true });
-        
+
         if(!data) throw new Error();
 
         return data;
