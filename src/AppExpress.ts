@@ -2,10 +2,11 @@ import express, { Request, Response } from "express";
 import { env } from "./Config/EnvConfig/EnvConfig";
 import {Handlers} from "./Shared/Handlers/Handlers";
 import { connect } from "mongoose";
+import helmet from 'helmet';
 
 export class AppExpress {
   private app: express.Application;
-  private PORT: string;
+  private readonly PORT: string;
 
   constructor() {
     this.app = express();
@@ -18,6 +19,7 @@ export class AppExpress {
   public initializeMiddleware(): void {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
+    this.app.use(helmet());
   };
 
   private initializeHandlers(): void {

@@ -11,9 +11,7 @@ export class UserExpressHandler implements IUserExpressHandler{
 
     start(): Router {
         this.router.get('/list', this.controller.list);
-        this.router.post('/save', async(req: Request, res: Response) => {
-            await this.controller.save(req.body, res);
-        });
+        this.router.post('/save', async(req: Request, res: Response) => await this.controller.save(req.body, res));
         return this.router;
     }
 }
